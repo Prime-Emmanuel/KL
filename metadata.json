@@ -1,0 +1,6 @@
+{
+  "name": "Kribi Logement",
+  "description": "Kribi Logement - Plus qu'un séjour, une expérience. Votre confort, notre priorité ! Découvrez Kora, votre concierge virtuel intelligent.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
