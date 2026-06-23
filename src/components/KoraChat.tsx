@@ -14,7 +14,9 @@ export default function KoraChat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3 }}
+            // Force right positioning – no left interference
             className="fixed bottom-[100px] md:bottom-[104px] right-4 md:right-6 z-[70] w-[calc(100vw-32px)] md:w-96 glowing-border rainbow flex flex-col"
+            style={{ left: "auto" }} // explicit override
           >
             {/* Header */}
             <div className="bg-white rounded-t-[1.3rem] p-4 border-b border-gray-100 flex items-center justify-between">
@@ -67,16 +69,17 @@ export default function KoraChat() {
         )}
       </AnimatePresence>
 
-      {/* Floating toggle button – fixed with stopPropagation and higher z-index */}
+      {/* Floating toggle button – stays on the right */}
       <button
         type="button"
         onClick={(e) => {
-          e.stopPropagation();    // Prevents any parent click handlers from interfering
+          e.stopPropagation();
           e.preventDefault();
-          console.log("Toggle clicked, current isOpen:", isOpen); // Helps debugging
+          console.log("Chat toggled, isOpen:", isOpen);
           setIsOpen(!isOpen);
         }}
         className="fixed bottom-24 md:bottom-6 right-6 z-[80] bg-gradient-to-tr from-kribi-gold-dark to-kribi-gold-light text-white w-14 h-14 rounded-full shadow-2xl shadow-kribi-gold/40 hover:scale-105 transition-transform flex items-center justify-center group border border-white/20 cursor-pointer"
+        style={{ left: "auto" }} // ensure right alignment
       >
         <span className="absolute right-full mr-4 bg-white text-gray-900 text-sm font-medium py-2 px-4 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-gray-100 hidden md:block">
           Discutez avec Kora
