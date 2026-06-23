@@ -29,7 +29,7 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto px-6 lg:px-8 flex items-center justify-between">
-        {/* Logo */}
+        {/* Logo – fallback text always shown if image fails */}
         <a href="#" className="flex flex-col relative z-20">
           <div className="flex items-center gap-3">
             <img
@@ -37,19 +37,28 @@ export default function Navbar() {
               alt="Kribi Logo"
               className="h-10 w-auto max-w-[120px] object-contain flex-shrink-0"
               onError={(e) => {
+                // Hide image and show the fallback text
                 e.currentTarget.style.display = "none";
-                e.currentTarget.nextElementSibling?.classList.remove("hidden");
-                e.currentTarget.nextElementSibling?.classList.add("flex");
+                const fallback = e.currentTarget.nextElementSibling;
+                if (fallback) {
+                  fallback.classList.remove("hidden");
+                  fallback.classList.add("flex");
+                }
               }}
             />
-            <div className="hidden flex-col">
+            {/* Fallback text (always visible if image fails) */}
+            <div className="flex flex-col">
               <span
-                className={`text-2xl font-serif tracking-tight leading-none ${isScrolled ? "text-gray-900" : "text-white"}`}
+                className={`text-2xl font-serif tracking-tight leading-none ${
+                  isScrolled ? "text-gray-900" : "text-white"
+                }`}
               >
                 KRiBi.
               </span>
               <span
-                className={`text-[9px] uppercase tracking-[0.2em] font-medium mt-1 ${isScrolled ? "text-gray-500" : "text-white/80"}`}
+                className={`text-[9px] uppercase tracking-[0.2em] font-medium mt-1 ${
+                  isScrolled ? "text-gray-500" : "text-white/80"
+                }`}
               >
                 Logement
               </span>
@@ -89,7 +98,9 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className={`md:hidden relative z-20 ${isScrolled ? "text-gray-900" : "text-white"}`}
+          className={`md:hidden relative z-20 ${
+            isScrolled ? "text-gray-900" : "text-white"
+          }`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? (
