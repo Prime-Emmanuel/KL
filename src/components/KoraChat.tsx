@@ -7,6 +7,28 @@ export default function KoraChat() {
 
   return (
     <>
+      {/* Inline style overrides – forces right alignment, works everywhere */}
+      <style>{`
+        .kora-chat-window {
+          left: auto !important;
+          right: 1rem !important;
+        }
+        @media (min-width: 768px) {
+          .kora-chat-window {
+            right: 1.5rem !important;
+          }
+        }
+        .kora-chat-toggle {
+          left: auto !important;
+          right: 1.5rem !important;
+        }
+        @media (max-width: 767px) {
+          .kora-chat-toggle {
+            right: 1.5rem !important;
+          }
+        }
+      `}</style>
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -14,9 +36,8 @@ export default function KoraChat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            // Force right positioning – no left interference
-            className="fixed bottom-[100px] md:bottom-[104px] right-4 md:right-6 z-[70] w-[calc(100vw-32px)] md:w-96 glowing-border rainbow flex flex-col"
-            style={{ left: "auto" }} // explicit override
+            // Removed right-* classes – the inline style above handles positioning
+            className="fixed bottom-[100px] md:bottom-[104px] z-[70] w-[calc(100vw-32px)] md:w-96 glowing-border rainbow flex flex-col kora-chat-window"
           >
             {/* Header */}
             <div className="bg-white rounded-t-[1.3rem] p-4 border-b border-gray-100 flex items-center justify-between">
@@ -25,12 +46,8 @@ export default function KoraChat() {
                   <Bot className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-serif text-gray-900 font-medium">
-                    KORA AI
-                  </h3>
-                  <p className="text-[10px] text-green-500 uppercase tracking-widest font-medium">
-                    Online
-                  </p>
+                  <h3 className="font-serif text-gray-900 font-medium">KORA AI</h3>
+                  <p className="text-[10px] text-green-500 uppercase tracking-widest font-medium">Online</p>
                 </div>
               </div>
               <button
@@ -44,11 +61,8 @@ export default function KoraChat() {
             {/* Chat Body */}
             <div className="bg-gray-50 h-80 p-4 pb-0 overflow-y-auto flex flex-col gap-4">
               <div className="bg-white border border-gray-100 rounded-2xl rounded-tl-sm p-4 text-sm text-gray-700 shadow-sm self-start max-w-[85%]">
-                <p className="font-serif italic mb-1 text-[#0A1D3A]">
-                  Bonjour !
-                </p>
-                Je suis KORA, votre concierge. Comment puis-je sublimer votre
-                séjour à Kribi aujourd'hui ?
+                <p className="font-serif italic mb-1 text-[#0A1D3A]">Bonjour !</p>
+                Je suis KORA, votre concierge. Comment puis-je sublimer votre séjour à Kribi aujourd'hui ?
               </div>
             </div>
 
@@ -75,11 +89,11 @@ export default function KoraChat() {
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
-          console.log("Chat toggled, isOpen:", isOpen);
+          console.log("Chat toggled, isOpen:", isOpen); // you can remove this line later
           setIsOpen(!isOpen);
         }}
-        className="fixed bottom-24 md:bottom-6 right-6 z-[80] bg-gradient-to-tr from-kribi-gold-dark to-kribi-gold-light text-white w-14 h-14 rounded-full shadow-2xl shadow-kribi-gold/40 hover:scale-105 transition-transform flex items-center justify-center group border border-white/20 cursor-pointer"
-        style={{ left: "auto" }} // ensure right alignment
+        // Removed right-* class – inline style handles it
+        className="fixed bottom-24 md:bottom-6 z-[80] bg-gradient-to-tr from-kribi-gold-dark to-kribi-gold-light text-white w-14 h-14 rounded-full shadow-2xl shadow-kribi-gold/40 hover:scale-105 transition-transform flex items-center justify-center group border border-white/20 cursor-pointer kora-chat-toggle"
       >
         <span className="absolute right-full mr-4 bg-white text-gray-900 text-sm font-medium py-2 px-4 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-gray-100 hidden md:block">
           Discutez avec Kora
